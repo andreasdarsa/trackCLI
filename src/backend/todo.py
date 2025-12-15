@@ -1,10 +1,16 @@
 import json
 import os
+from pathlib import Path
 
-DATA_FILE = os.environ.get("TASKS_FILE", "data/tasks.json")
+BASE_DIR = Path(__file__).parent
+
+DEFAULT_FILES_DIR = BASE_DIR.parent.parent/ "src" / "data" / "tasks.json"
+
+DATA_FILE = os.environ.get("TASKS_FILE", str(DEFAULT_FILES_DIR))
 
 
 def load_tasks():
+    print(DATA_FILE)
     if not os.path.exists(DATA_FILE):
         return []
     with open(DATA_FILE, "r") as f:
